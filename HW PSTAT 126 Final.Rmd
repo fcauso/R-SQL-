@@ -1,0 +1,63 @@
+---
+title: "HW Pstat"
+output: pdf_document
+---
+1. This problem uses the data set UN11 from the alr4 package.
+a) 
+
+```{r}
+library(alr4)
+names(UN11)
+pairs(~fertility+log(ppgdp) + pctUrban, data = UN11)
+##From looking at all the scatterplots we can tell that Fertility and log(ppgdp) have a negative correlation.   ##Fertility and pctUrban has a negative correlation ## log(ppgdp) and pctUrban has a negative correlation
+```
+
+b) 
+
+```{r}
+lmfert <- lm(fertility~log(ppgdp)+pctUrban,data=UN11)
+summary(lmfert)
+#the coefficient of log(ppgdp) is siginificantly different from 0 as the p value is very low.
+```
+
+c) 
+
+```{r}
+k <- avPlots(lmfert)
+##This give the partial regression plot : from here we can say that log(ppgdp) is useful as it shows a steep slope while pctUrban is neutral to fertility
+### here we obtain the partial regression slope
+h=lm(log(ppgdp)~pctUrban,data=UN11)
+
+resi=h$residuals    ##for the residuals
+
+G=lm(fertility~resi,data=UN11)
+
+summary(G) 
+
+##From both the fits it is evident the estimated coefficient of log(ppgdp) from the ordinary regression is same as the estimated slope of (ppgdp) from the added variable plot
+```
+
+
+2. 
+).
+a) Suppose that xi1 and xi2 are exactly related in that xi1 = 2.2xi2 for all i. For
+example, xi2 could be weight in kilograms and xi1 weight in pounds for the ith individual. Describe the appearance of the added-variable plot for xi2 after
+adjusting for xi1.
+
+
+#the apperance on the added vaiable plot would be increased positively in a linear relationship, the slope would increase by2.2
+
+b) Suppose instead that xi1 and xi2 are not perfectly correlated, but that Yi = 3xi1, i.e.
+Yi
+is perfectly correlated with xi1. Describe the appearance of the added-variable
+plot for xi2.
+
+
+##Without perfect correlaion the added variable would create a destruction in the linear relatinship and increase the error estimation between the predictors and response in a negative 3 power. 
+
+
+
+
+
+
+
